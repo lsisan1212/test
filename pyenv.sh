@@ -2,6 +2,9 @@
 
 start_time=$(date +%s)
 
+current_time=$(date "+%Y-%m-%d %H:%M:%S")
+echo "Current time: $current_time"
+
 #handle_error() {
   #echo "错误 / Error: \$1" | tee -a /tmp/pyenv_install.log
   #exit 1
