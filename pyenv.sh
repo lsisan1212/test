@@ -1,21 +1,20 @@
-#!/bin/bash
-
+!/bin/bash
 start_time=$(date +%s)
 
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
 echo "Current time: $current_time"
 
-#handle_error() {
-  #echo "错误 / Error: \$1" | tee -a /tmp/pyenv_install.log
-  #exit 1
-#}
+handle_error() {
+  echo "错误 / Error: \$1" | tee -a /tmp/pyenv_install.log
+  exit 1
+}
 
-#echo "Logging to /tmp/pyenv_install.log"
-#exec > >(tee -a /tmp/pyenv_install.log) 2>&1
+echo "Logging to /tmp/pyenv_install.log"
+exec > >(tee -a /tmp/pyenv_install.log) 2>&1
 
-#if ! command -v sudo >/dev/null 2>&1; then
-  #echo "警告：sudo 未安装或不可用。某些安装步骤可能失败。 / Warning: sudo not installed or unavailable. Some installation steps may fail."
-#fi
+if ! command -v sudo >/dev/null 2>&1; then
+  echo "警告：sudo 未安装或不可用。某些安装步骤可能失败。 / Warning: sudo not installed or unavailable. Some installation steps may fail."
+fi
 
 while read -t 0.1 -r _; do :; done
 
