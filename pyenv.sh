@@ -7,8 +7,8 @@ handle_error() {
   exit 1
 }
 
-echo "Logging to /tmp/pyenv_install.log"
-exec > >(tee -a /tmp/pyenv_install.log) 2>&1
+#echo "Logging to /tmp/pyenv_install.log"
+#exec > >(tee -a /tmp/pyenv_install.log) 2>&1
 
 if ! command -v sudo >/dev/null 2>&1; then
   echo "警告：sudo 未安装或不可用。某些安装步骤可能失败。 / Warning: sudo not installed or unavailable. Some installation steps may fail."
