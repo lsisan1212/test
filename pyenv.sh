@@ -3,19 +3,18 @@
 start_time=$(date +%s)
 
 handle_error() {
-  echo "错误 / Error: $1" | tee -a /tmp/pyenv_install.log
+  echo "错误 / Error: \$1" | tee -a /tmp/pyenv_install.log
   exit 1
 }
 
 echo "Logging to /tmp/pyenv_install.log"
-exec 1> >(tee -a /tmp/pyenv_install.log)
-exec 2>&1
+exec > >(tee -a /tmp/pyenv_install.log) 2>&1
 
 if ! command -v sudo >/dev/null 2>&1; then
   echo "警告：sudo 未安装或不可用。某些安装步骤可能失败。 / Warning: sudo not installed or unavailable. Some installation steps may fail."
 fi
 
-while read -t 0.1 -r; do :; done
+while read -t 0.1 -r _; do :; done
 
 echo "您想安装哪些部分？（输入以空格分隔的数字） / Which parts do you want to install? (Enter numbers separated by spaces)"
 echo "1. Google Chrome"
@@ -41,7 +40,7 @@ fi
 choices=($choice)
 
 contains() {
-  local value=$1
+  local value=\$1
   for item in "${choices[@]}"; do
     if [ "$item" == "$value" ]; then
       return 0
@@ -56,22 +55,21 @@ if contains 1; then
   echo "======================================="
   if command -v apt >/dev/null 2>&1; then
     echo "正在为 Ubuntu/Debian 下载 Google Chrome... / Downloading Google Chrome for Ubuntu/Debian..."
-    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/google-chrome.deb || {
+    wget -q -O /tmp/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || {
       echo "下载 Google Chrome 失败。 / Failed to download Google Chrome."
-      continue
+      exit 1
     }
     sudo dpkg -i /tmp/google-chrome.deb || echo "dpkg 安装失败，将尝试修复... / dpkg installation failed, attempting to fix..."
     sudo apt-get install -f -y || echo "修复依赖失败。 / Failed to fix dependencies."
   elif command -v dnf >/dev/null 2>&1; then
     echo "正在为 CentOS 下载 Google Chrome... / Downloading Google Chrome for CentOS..."
-    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm -O /tmp/google-chrome.rpm || {
+    wget -q -O /tmp/google-chrome.rpm https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm || {
       echo "下载 Google Chrome 失败。 / Failed to download Google Chrome."
-      continue
+      exit 1
     }
     sudo dnf localinstall -y /tmp/google-chrome.rpm || echo "dnf 安装失败。 / dnf installation failed."
   else
     echo "无法识别的操作系统或包管理工具。跳过 Google Chrome 安装。 / Unrecognized operating system or package manager. Skipping Google Chrome installation."
-    continue
   fi
 
   if command -v google-chrome >/dev/null 2>&1; then
@@ -93,11 +91,11 @@ if contains 2; then
   echo "安装依赖项... / Installing dependencies..."
   sudo apt update || handle_error "更新软件包列表失败 / Failed to update package lists"
   sudo apt install -y git curl build-essential libssl-dev zlib1g-dev libbz2-dev \
-  libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev \
-  xz-utils tk-dev libffi-dev liblzma-dev python3-openssl || handle_error "安装依赖项失败 / Failed to install dependencies"
+    libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev \
+    xz-utils tk-dev libffi-dev liblzma-dev python3-openssl || handle_error "安装依赖项失败 / Failed to install dependencies"
 
   echo "安装 pyenv... / Installing pyenv..."
-  curl https://pyenv.run | bash || handle_error "安装 pyenv 失败 / Failed to install pyenv"
+  curl -s https://pyenv.run | bash || handle_error "安装 pyenv 失败 / Failed to install pyenv"
 
   echo "检测用户 shell... / Detecting user shell..."
   if [[ "$SHELL" == */zsh ]]; then
@@ -122,9 +120,9 @@ if contains 2; then
   echo "加载 $config_file... / Sourcing $config_file..."
   source "$config_file" || handle_error "加载 $config_file 失败 / Failed to source $config_file"
 
-  echo "安装 Python 3.11.12... / Installing Python 3.11.12..."
-  pyenv install 3.11.12 || handle_error "安装 Python 3.11.12 失败 / Failed to install Python 3.11.12"
-  pyenv global 3.11.12 || handle_error "设置 Python 3.11.12 为全局版本失败 / Failed to set Python 3.11.12 as global"
+  echo "安装 Python 3.11.5... / Installing Python 3.11.5..."
+  pyenv install 3.11.5 || handle_error "安装 Python 3.11.5 失败 / Failed to install Python 3.11.5"
+  pyenv global 3.11.5 || handle_error "设置 Python 3.11.5 为全局版本失败 / Failed to set Python 3.11.5 as global"
 
   echo "再次加载 $config_file... / Sourcing $config_file again..."
   source "$config_file" || handle_error "加载 $config_file 失败 / Failed to source $config_file"
@@ -132,7 +130,7 @@ if contains 2; then
   echo "安装 xbx-py11... / Installing xbx-py11..."
   pip install xbx-py11 || {
     echo "安装 xbx-py11 失败。请检查网络或 PyPI 可用性。 / Failed to install xbx-py11. Please check network or PyPI availability."
-    continue
+    exit 1
   }
 fi
 
