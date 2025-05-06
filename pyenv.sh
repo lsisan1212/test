@@ -1,4 +1,5 @@
-!/bin/bash
+#!/bin/bash
+
 start_time=$(date +%s)
 
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
