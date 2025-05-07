@@ -106,34 +106,20 @@ install_pyenv() {
   curl -s https://pyenv.run | bash
 
   
-  if [[ -n "$ZSH_VERSION" ]]; then
-    echo "zsh"
-    config_file="$HOME/.zshrc"
-  elif [[ -n "$BASH_VERSION" ]]; then
-    echo "bash"
-    config_file="$HOME/.bashrc"
-  else
-    # Fallback: Check the parent process name
-    current_shell=$(ps -p $$ -o comm=)
-    case "$current_shell" in
-      zsh)
-        echo "zsh"
-        config_file="$HOME/.zshrc"
-        ;;
-      bash)
-        echo "bash"
-        config_file="$HOME/.bashrc"
-        ;;
-      *)
-        echo "unknown"
-        config_file="$HOME/.bashrc" # Default fallback
-        ;;
-    esac
-  fi
-
-
-# Detect the shell
-shell_type=$(detect_shell)
+  # Detect the shell and set config file
+if [ -n "$ZSH_VERSION" ]; then
+  shell_type="zsh"
+  config_file="$HOME/.zshrc"
+  echo "Using Zsh, configuration file is ~/.zshrc"
+elif [ -n "$BASH_VERSION" ]; then
+  shell_type="bash"
+  config_file="$HOME/.bashrc"
+  echo "Using Bash, configuration file is ~/.bashrc"
+else
+  shell_type="unknown"
+  config_file="$HOME/.bashrc" # Default fallback
+  echo "Unknown shell, defaulting to ~/.bashrc"
+fi
 
 # Provide feedback based on shell type
 case "$shell_type" in
