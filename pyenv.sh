@@ -189,6 +189,9 @@ install_pyenv() {
   echo "加载 $config_file... / Sourcing $config_file..."
   if [ "$shell_type" = "zsh" ] && [ -n "$ZSH_VERSION" ] || [ "$shell_type" = "bash" ] && [ -n "$BASH_VERSION" ]; then
     . "$config_file"
+    pyenv install 3.11.12
+    pyenv global 3.11.12
+    . "$config_file"
   else
     echo "警告：当前 shell 与配置文件不匹配，跳过 source 操作。请手动 source $config_file 或重启终端。 / Warning: Current shell does not match config file, skipping source. Please manually source $config_file or restart your terminal."
   fi
