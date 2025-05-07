@@ -105,97 +105,16 @@ install_pyenv() {
   echo "安装 pyenv... / Installing pyenv..."
   curl -s https://pyenv.run | bash
 
-  # Detect the shell and set config file
-  if [ -n "$ZSH_VERSION" ]; then
-    shell_type="zsh"
-    config_file="$HOME/.zshrc"
-    echo "Using Zsh, configuration file is ~/.zshrc"
-  elif [ -n "$BASH_VERSION" ]; then
-    shell_type="bash"
-    config_file="$HOME/.bashrc"
-    echo "Using Bash, configuration file is ~/.bashrc"
-  else
-    # Fallback: Check the user's default shell via $SHELL or /proc/$$/cmdline
-    case "$SHELL" in
-      */zsh)
-        shell_type="zsh"
-        config_file="$HOME/.zshrc"
-        echo "Detected Zsh via \$SHELL, configuration file is ~/.zshrc"
-        ;;
-      */bash)
-        shell_type="bash"
-        config_file="$HOME/.bashrc"
-        echo "Detected Bash via \$SHELL, configuration file is ~/.bashrc"
-        ;;
-      *)
-        # Check the current process's shell
-        current_shell=$(ps -p $$ -o comm= 2>/dev/null || echo "$SHELL")
-        case "$current_shell" in
-          *zsh)
-            shell_type="zsh"
-            config_file="$HOME/.zshrc"
-            echo "Detected Zsh via process, configuration file is ~/.zshrc"
-            ;;
-          *bash)
-            shell_type="bash"
-            config_file="$HOME/.bashrc"
-            echo "Detected Bash via process, configuration file is ~/.bashrc"
-            ;;
-          *)
-            shell_type="unknown"
-            config_file="$HOME/.bashrc" # Default fallback
-            echo "Unknown shell, defaulting to ~/.bashrc"
-            ;;
-        esac
-        ;;
-    esac
-  fi
+  echo 'export PATH="$HOME/.pyenv/bin:$PATH"' >> ~/.zshrc
+  echo 'eval "$(pyenv init --path)"' >> ~/.zshrc
+  echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+  echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshrc
 
-  # Provide feedback based on shell type
-  case "$shell_type" in
-    zsh)
-      echo "检测到 Zsh，将配置 pyenv 到 ~/.zshrc / Detected Zsh, configuring pyenv in ~/.zshrc"
-      ;;
-    bash)
-      echo "检测到 Bash，将配置 pyenv 到 ~/.bashrc / Detected Bash, configuring pyenv in ~/.bashrc"
-      ;;
-    *)
-      echo "警告：未检测到 Zsh 或 Bash (当前 shell: $shell_type)。将默认使用 ~/.bashrc，但您可能需要手动配置 pyenv。 / Warning: Neither Zsh nor Bash detected (current shell: $shell_type). Defaulting to ~/.bashrc, but you may need to configure pyenv manually."
-      ;;
-  esac
+  source ~/.zshrc
+  pyenv install 3.11.12
+  pyenv global 3.11.12
 
-  # Check if pyenv is installed
-  if ! command -v pyenv >/dev/null 2>&1; then
-    echo "错误：pyenv 未安装。请先安装 pyenv。 / Error: pyenv is not installed. Please install pyenv first."
-    return 1
-  fi
-
-  # Configure pyenv in the detected config file, if not already configured
-  if ! grep -q 'pyenv init' "$config_file" 2>/dev/null; then
-    echo "在 $config_file 中配置 pyenv... / Configuring pyenv in $config_file..."
-    {
-      echo ''
-      echo '# pyenv configuration'
-      echo 'export PATH="$HOME/.pyenv/bin:$PATH"'
-      echo 'eval "$(pyenv init --path)"'
-      echo 'eval "$(pyenv init -)"'
-      echo 'eval "$(pyenv virtualenv-init -)"'
-    } >> "$config_file"
-  else
-    echo "pyenv 已配置在 $config_file 中，跳过配置 / pyenv already configured in $config_file, skipping configuration"
-  fi
-
-  # Source the config file only if it matches the current shell
-  echo "加载 $config_file... / Sourcing $config_file..."
-  if [ "$shell_type" = "zsh" ] && [ -n "$ZSH_VERSION" ] || [ "$shell_type" = "bash" ] && [ -n "$BASH_VERSION" ]; then
-    . "$config_file"
-    pyenv install 3.11.12
-    pyenv global 3.11.12
-    . "$config_file"
-  else
-    echo "警告：当前 shell 与配置文件不匹配，跳过 source 操作。请手动 source $config_file 或重启终端。 / Warning: Current shell does not match config file, skipping source. Please manually source $config_file or restart your terminal."
-  fi
-  
+  source ~/.zshrc
   echo "---------------------------------------"
   echo "完成！您可以使用 'python' 运行 python。 / Done! You can run python."
   echo "---------------------------------------"
