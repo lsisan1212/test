@@ -20,10 +20,11 @@ fi
 while read -t 0.1 -r _; do :; done
 
 echo "您想安装哪些部分？（输入以空格分隔的数字） / Which parts do you want to install? (Enter numbers separated by spaces)"
-echo "1. 全部 (Google Chrome, Pyenv, PM2) / All (Google Chrome, Pyenv, PM2)"
+echo "1. 全部 (Google Chrome, Pyenv, PM2, LunarVim) / All (Google Chrome, Pyenv, PM2, LunarVim)"
 echo "2. Google Chrome"
 echo "3. Pyenv, Python, and xbx-py11"
 echo "4. PM2"
+echo "5. LunarVim for Python development"
 echo "输入您的选择（例如，1 2 3）或按回车安装全部... / Enter your choice (e.g., 1 2 3) or press Enter to install all..."
 
 if [ -t 0 ]; then
@@ -138,11 +139,39 @@ install_pm2() {
   fi
 }
 
+# Function to install LunarVim for Python development
+install_lunarvim() {
+  echo "======================================="
+  echo "安装 LunarVim for Python 开发 / Installing LunarVim for Python development"
+  echo "======================================="
+  echo "安装依赖项... / Installing dependencies..."
+  sudo apt update
+  sudo apt install -y git curl neovim python3-pip python3-venv
+
+  echo "安装 LunarVim... / Installing LunarVim..."
+  bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh) <<EOF
+n
+y
+EOF
+
+  if command -v lvim >/dev/null 2>&1; then
+    echo "LunarVim 安装成功！ / LunarVim installed successfully!"
+    lvim --version
+  else
+    echo "LunarVim 安装失败。请检查日志 /tmp/pyenv_install.log。 / LunarVim installation failed. Please check logs in /tmp/pyenv_install.log."
+  fi
+
+  echo "---------------------------------------"
+  echo "完成！您可以使用 'lvim' 运行 LunarVim。 / Done! You can run LunarVim with 'lvim'."
+  echo "---------------------------------------"
+}
+
 # Process choices
 if contains 1; then
   install_chrome
   install_pyenv
   install_pm2
+  install_lunarvim
 fi
 if contains 2; then
   install_chrome
@@ -153,6 +182,11 @@ fi
 if contains 4; then
   install_pm2
 fi
+if contains 5; then
+  install_lunarvim
+fi
+
+ Hawkins
 
 echo "显示磁盘使用情况... / Displaying disk usage..."
 df -h || echo "运行 df -h 失败 / Failed to run df -h"
@@ -173,6 +207,10 @@ fi
 if contains 1 || contains 4; then
   echo "PM2 版本： / PM2 version:"
   pm2 --version || echo "无法显示 PM2 版本。 / Failed to display PM2 version."
+fi
+if contains 1 || contains 5; then
+  echo "LunarVim 版本： / LunarVim version:"
+  lvim --version || echo "无法显示 LunarVim 版本。 / Failed to display LunarVim version."
 fi
 
 end_time=$(date +%s)
