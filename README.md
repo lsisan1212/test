@@ -3,3 +3,8 @@ curl -sL https://github.com/lsisan1212/test/raw/master/pyenv.sh | bash
 curl -sL https://github.com/lsisan1212/test/raw/master/pyenv.sh -o 1.sh && chmod 777 1.sh && ./1.sh
 
 wget -qO- https://github.com/lsisan1212/test/raw/master/pyenv.sh | bash
+
+
+zip data
+tar -cf data.tar data && bzip2 -9 data.tar
+
