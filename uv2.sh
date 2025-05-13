@@ -24,8 +24,8 @@ echo "1. 全部 (Google Chrome, uv, PM2, LunarVim, Pyenv) / All (Google Chrome, 
 echo "2. Google Chrome"
 echo "3. uv, Python, and xbx-py11"
 echo "4. PM2"
-echo "5. LunarVim for Python development"
-echo "6. Pyenv, Python, and xbx-py11"
+echo "5. LunarVim for Python development (Optional)"
+echo "6. Pyenv, Python, and xbx-py11 (Optional)"
 echo "输入您的选择（例如，1 2 3）或在10秒内按回车安装全部... / Enter your choice (e.g., 1 2 3) or press Enter within 10 seconds to install all..."
 
 if [ -t 0 ]; then
@@ -104,11 +104,11 @@ install_uv() {
   echo -e "\033[1;33m安装 uv、Python 和 xbx-py11 / Installing uv, Python, and xbx-py11\033[0m"
   echo -e "\033[1;33m=======================================\033[0m"
   echo "安装 uv... / Installing uv..."
-  curl -LsSf https://astral.sh/uv/install.sh | sh || handle_error "Failed to install uv"
-  uv self update || handle_error "Failed to update uv"
-  uv venv --python=3.11.12 alpha || handle_error "Failed to create virtual environment"
-  source alpha/bin/activate || handle_error "Failed to activate virtual environment"
-  uv pip install --force-reinstall xbx-py11 || handle_error "Failed to install xbx-py11"
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  uv self update
+  uv venv --python=3.11.12 alpha
+  source alpha/bin/activate
+  uv pip install --force-reinstall
   echo -e "\033[1;33m---------------------------------------\033[0m"
   echo -e "\033[1;33m完成！您可以在虚拟环境中使用 'python' 运行 Python。 / Done! You can run Python in the virtual environment.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
@@ -196,7 +196,8 @@ if contains 1; then
   install_chrome
   install_uv
   install_pm2
-  install_lunarvim
+  source alpha/bin/activate
+  #install_lunarvim
   #install_pyenv
 fi
 if contains 2; then
@@ -233,7 +234,7 @@ if contains 1 || contains 4; then
   echo "PM2 版本： / PM2 version:"
   pm2 --version || echo "无法显示 PM2 版本。 / Failed to display PM2 version."
 fi
-if contains 1 || contains 5; then
+if contains 5; then
   echo "LunarVim 版本： / LunarVim version:"
   lvim --version || echo "无法显示 LunarVim 版本。 / Failed to display LunarVim version."
 fi
