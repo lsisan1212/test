@@ -196,7 +196,7 @@ if contains 1; then
   install_chrome
   install_uv
   install_pm2
-  source alpha/bin/activate
+  source alpha/bin/activate || echo "Activate alpha"
   #install_lunarvim
   #install_pyenv
 fi
@@ -205,6 +205,7 @@ if contains 2; then
 fi
 if contains 3; then
   install_uv
+  source alpha/bin/activate || echo "Activate alpha"
 fi
 if contains 4; then
   install_pm2
