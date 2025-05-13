@@ -110,6 +110,7 @@ install_uv() {
   source alpha/bin/activate
   uv pip install --force-reinstall
   python --version
+  echo 'source '"$(pwd)"'/alpha/bin/activate' >> ~/.zshrc
   echo -e "\033[1;33m---------------------------------------\033[0m"
   echo -e "\033[1;33m完成！您可以在虚拟环境中使用 'python' 运行 Python。 / Done! You can run Python in the virtual environment.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
