@@ -109,7 +109,6 @@ install_uv() {
   uv venv --python=3.11.12 alpha
   source alpha/bin/activate
   uv pip install --force-reinstall
-  python --version || echo "*******************************************************"
   echo -e "\033[1;33m---------------------------------------\033[0m"
   echo -e "\033[1;33m完成！您可以在虚拟环境中使用 'python' 运行 Python。 / Done! You can run Python in the virtual environment.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
@@ -195,9 +194,8 @@ install_pyenv() {
 # Process choices
 if contains 1; then
   install_chrome
-  install_uv
   install_pm2
-  source alpha/bin/activate || echo "Activate alpha"
+  install_uv
   #install_lunarvim
   #install_pyenv
 fi
@@ -206,7 +204,6 @@ if contains 2; then
 fi
 if contains 3; then
   install_uv
-  source alpha/bin/activate || echo "Activate alpha"
 fi
 if contains 4; then
   install_pm2
