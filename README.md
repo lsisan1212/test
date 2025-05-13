@@ -1,6 +1,8 @@
 curl -sL https://github.com/lsisan1212/test/raw/master/pyenv.sh | bash
 
-curl -sL https://github.com/lsisan1212/test/raw/master/pyenv.sh -o 1.sh && chmod 777 1.sh && ./1.sh
+curl -sL https://github.com/lsisan1212/test/raw/master/pyenv.sh -o pyenv.sh && chmod 777 pyenv.sh && ./pyenv.sh
+
+curl -sL https://github.com/lsisan1212/test/raw/master/uv.sh -o uv.sh && chmod 777 uv.sh && ./uv.sh
 
 wget -qO- https://github.com/lsisan1212/test/raw/master/pyenv.sh | bash
 
