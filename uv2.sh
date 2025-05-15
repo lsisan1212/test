@@ -20,7 +20,7 @@ fi
 while read -t 0.1 -r _; do :; done
 
 echo "您想安装哪些部分？（输入以空格分隔的数字） / Which parts do you want to install? (Enter numbers separated by spaces)"
-echo "1. 全部 (Google Chrome, uv, PM2) / All (Google Chrome, uv, PM2)"
+echo "1. 全部 (Google Chrome, uv, PM2) / All (Google Chrome, uv, PM2) [自動安裝 Auto install]"
 echo "2. Google Chrome"
 echo "3. uv, Python, and xbx-py11"
 echo "4. PM2"
@@ -62,9 +62,10 @@ contains() {
 
 # Function to install Google Chrome
 install_chrome() {
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
   echo -e "\033[1;33m\U1F4AC 安装 Google Chrome / Installing Google Chrome\033[0m"
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
+  echo ""
   if command -v apt >/dev/null 2>&1; then
     echo "正在为 Ubuntu/Debian 下载 Google Chrome... / Downloading Google Chrome for Ubuntu/Debian..."
     wget -q -O /tmp/google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb || {
@@ -93,17 +94,18 @@ install_chrome() {
 
   echo "清理临时文件... / Cleaning up temporary files..."
   rm -f /tmp/google-chrome.* || echo "\U26A0 清理临时文件失败。 / Failed to clean up temporary files."
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
   echo -e "\033[1;33m\U1F389 完成！您可以使用 'google-chrome' 运行 Google Chrome。 / Done! You can run Google Chrome with 'google-chrome'.\033[0m"
-  echo -e "\033[1;33m---------------------------------------\033[0m"
-  echo -e "\033[1;33m\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  echo ""
 }
 
 # Function to install uv, Python, and xbx-py11
 install_uv() {
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
   echo -e "\033[1;33m\U1F4AC 安装 uv、Python 和 xbx-py11 / Installing uv, Python, and xbx-py11\033[0m"
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
+  echo ""
   echo "安装 uv... / Installing uv..."
   curl -LsSf https://astral.sh/uv/install.sh | sh
   uv self update
@@ -112,16 +114,18 @@ install_uv() {
   uv pip install --force-reinstall
   python --version
   echo 'source '"$(pwd)"'/alpha/bin/activate' >> ~/.zshrc
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
   echo -e "\033[1;33m\U1F389 完成！您可以在虚拟环境中使用 'python' 运行 Python。 / Done! You can run Python in the virtual environment.\033[0m"
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  echo ""
 }
 
 # Function to install PM2
 install_pm2() {
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
   echo -e "\033[1;33m\U1F4AC 开始安装 PM2... / Installing PM2...\033[0m"
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
+  echo ""
   echo "安装 Node.js 和 npm... / Installing Node.js and npm..."
   sudo apt update || echo "更新软件包列表失敗，继续尝试安装... / Failed to update package lists, continuing..."
   sudo apt install -y nodejs npm || echo "\U26A0 安装 Node.js 和 npm 失败。 / Failed to install Node.js and npm."
@@ -133,16 +137,18 @@ install_pm2() {
   else
     echo "PM2 安装失败。 / PM2 installation failed."
   fi
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
   echo -e "\033[1;33m\U1F389 完成！您可以使用 'pm2' 运行 PM2。 / Done! You can run PM2 with 'pm2'.\033[0m"
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  echo ""
 }
 
 # Function to install LunarVim for Python development
 install_lunarvim() {
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
   echo -e "\033[1;33m\U1F4AC 安装 LunarVim for Python 开发 / Installing LunarVim for Python development\033[0m"
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
+  echo ""
   echo "安装依赖项... / Installing dependencies..."
   sudo apt update
   sudo apt install -y git curl neovim python3-pip python3-venv
@@ -160,16 +166,18 @@ EOF
     echo "\U26A0 LunarVim 安装失败。请检查日志 /tmp/pyenv_install.log。 / LunarVim installation failed. Please check logs in /tmp/pyenv_install.log."
   fi
 
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
   echo -e "\033[1;33m\U1F389 完成！您可以使用 'lvim' 运行 LunarVim。 / Done! You can run LunarVim with 'lvim'.\033[0m"
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  echo ""
 }
 
 # Function to install Pyenv, Python, and xbx-py11
 install_pyenv() {
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
   echo -e "\033[1;33m\U1F4AC 安装 pyenv、Python 和 xbx-py11 / Installing pyenv, Python, and xbx-py11\033[0m"
-  echo -e "\033[1;33m=======================================\033[0m"
+  echo -e "\033[1;33m==============================================================================\033[0m"
+  echo ""
   echo "安装依赖项... / Installing dependencies..."
   sudo apt update
   sudo apt install -y git curl build-essential libssl-dev zlib1g-dev libbz2-dev \
@@ -189,9 +197,10 @@ install_pyenv() {
   pyenv global 3.11.12
 
   source ~/.zshrc
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
   echo -e "\033[1;33m\U1F389 完成！您可以使用 'python' 运行 python。 / Done! You can run python.\033[0m"
-  echo -e "\033[1;33m---------------------------------------\033[0m"
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  echo ""
 }
 
 # Process choices
@@ -218,31 +227,50 @@ if contains 6; then
   install_pyenv
 fi
 
+echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
 echo "显示磁盘使用情况... / Displaying disk usage..."
 df -h || echo "\U26A0 运行 df -h 失败 / Failed to run df -h"
+echo ""
 
+echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
 echo "显示系统信息... / Displaying system info..."
 neofetch || echo "\U26A0 运行 neofetch 失败，可能未安装。 / Failed to run neofetch, may not be installed."
+echo ""
 
 if contains 1 || contains 2; then
-  echo "Google Chrome 版本： / Google Chrome version:"
-  google-chrome --version || echo "\U26A0 无法显示 Google Chrome 版本。 / Failed to display Google Chrome version."
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  #echo "Google Chrome 版本： / Google Chrome version:"
+  #google-chrome --version || echo "\U26A0 无法显示 Google Chrome 版本。 / Failed to display Google Chrome version."
+  echo -e "Google Chrome 版本： / Google Chrome version: $(google-chrome --version || echo '\U26A0 无法显示 Google Chrome 版本。 / Failed to display Google Chrome version.')"
+  echo ""
 fi
 if contains 1 || contains 3 || contains 6; then
-  echo "Python 版本： / Python version:"
-  python --version || echo "\U26A0 无法显示 Python 版本。 / Failed to display Python version."
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  #echo "Python 版本： / Python version:"
+  #python --version || echo "\U26A0 无法显示 Python 版本。 / Failed to display Python version."
+  echo -e "Python 版本： / Python version: $(python --version || echo '\U26A0 无法显示 Python 版本。 / Failed to display Python version.')"
+  echo ""
 fi
 if contains 1 || contains 4; then
-  echo "PM2 版本： / PM2 version:"
-  pm2 --version || echo "\U26A0 无法显示 PM2 版本。 / Failed to display PM2 version."
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  #echo "PM2 版本： / PM2 version:"
+  #pm2 --version || echo "\U26A0 无法显示 PM2 版本。 / Failed to display PM2 version."
+  echo -e "PM2 版本： / PM2 version: $(pm2 --version || echo '\U26A0 无法显示 PM2 版本。 / Failed to display PM2 version.')"
+  echo ""
 fi
 if contains 5; then
-  echo "LunarVim 版本： / LunarVim version:"
-  lvim --version || echo "\U26A0 无法显示 LunarVim 版本。 / Failed to display LunarVim version."
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  #echo "LunarVim 版本： / LunarVim version:"
+  #lvim --version || echo "\U26A0 无法显示 LunarVim 版本。 / Failed to display LunarVim version."
+  echo -e "LunarVim 版本： / LunarVim version: $(lvim --version || echo '\U26A0 无法显示 LunarVim 版本。 / Failed to display LunarVim version.')"
+  echo ""
 fi
 if contains 6; then
-  echo "Pyenv 版本： / Pyenv version:"
-  pyenv --version || echo "\U26A0 无法显示 Pyenv 版本。 / Failed to display Pyenv version."
+  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
+  #echo "Pyenv 版本： / Pyenv version:"
+  #pyenv --version || echo "\U26A0 无法显示 Pyenv 版本。 / Failed to display Pyenv version."
+  echo -e "Pyenv 版本： / Pyenv version: $(pyenv --version || echo '\U26A0 无法显示 Pyenv 版本。 / Failed to display Pyenv version.')"
+  echo ""
 fi
 
 end_time=$(date +%s)
@@ -251,5 +279,3 @@ minutes=$((execution_time / 60))
 seconds=$((execution_time % 60))
 echo "脚本成功完成！ / Script completed successfully!"
 echo "总执行时间：$minutes 分钟 $seconds 秒 / Total execution time: $minutes minutes and $seconds seconds"
-echo "请检查 /tmp/pyenv_install.log 以获取详细信息。 / Please check /tmp/pyenv_install.log for details."
-source alpha/bin/activate
