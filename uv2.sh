@@ -63,7 +63,7 @@ contains() {
 # Function to install Google Chrome
 install_chrome() {
   echo -e "\033[1;33m=======================================\033[0m"
-  echo -e "\033[1;33mU+1F4AC 安装 Google Chrome / Installing Google Chrome\033[0m"
+  echo -e "\033[1;33m\U+1F4AC 安装 Google Chrome / Installing Google Chrome\033[0m"
   echo -e "\033[1;33m=======================================\033[0m"
   if command -v apt >/dev/null 2>&1; then
     echo "正在为 Ubuntu/Debian 下载 Google Chrome... / Downloading Google Chrome for Ubuntu/Debian..."
@@ -76,7 +76,7 @@ install_chrome() {
   elif command -v dnf >/dev/null 2>&1; then
     echo "正在为 CentOS 下载 Google Chrome... / Downloading Google Chrome for CentOS..."
     wget -q -O /tmp/google-chrome.rpm https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm || {
-      echo "下载 Google Chrome 失败。 / Failed to download Google Chrome."
+      echo "\U26A0 下载 Google Chrome 失败。 / Failed to download Google Chrome."
       exit 1
     }
     sudo dnf localinstall -y /tmp/google-chrome.rpm || echo "dnf 安装失败。 / dnf installation failed."
@@ -94,7 +94,7 @@ install_chrome() {
   echo "清理临时文件... / Cleaning up temporary files..."
   rm -f /tmp/google-chrome.* || echo "\U26A0 清理临时文件失败。 / Failed to clean up temporary files."
   echo -e "\033[1;33m---------------------------------------\033[0m"
-  echo -e "\033[1;33mU+1F389 完成！您可以使用 'google-chrome' 运行 Google Chrome。 / Done! You can run Google Chrome with 'google-chrome'.\033[0m"
+  echo -e "\033[1;33m\U+1F389 完成！您可以使用 'google-chrome' 运行 Google Chrome。 / Done! You can run Google Chrome with 'google-chrome'.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
   echo -e "\033[1;33m\033[0m"
 }
@@ -102,7 +102,7 @@ install_chrome() {
 # Function to install uv, Python, and xbx-py11
 install_uv() {
   echo -e "\033[1;33m=======================================\033[0m"
-  echo -e "\033[1;33mU+1F4AC 安装 uv、Python 和 xbx-py11 / Installing uv, Python, and xbx-py11\033[0m"
+  echo -e "\033[1;33m\U+1F4AC 安装 uv、Python 和 xbx-py11 / Installing uv, Python, and xbx-py11\033[0m"
   echo -e "\033[1;33m=======================================\033[0m"
   echo "安装 uv... / Installing uv..."
   curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -113,14 +113,14 @@ install_uv() {
   python --version
   echo 'source '"$(pwd)"'/alpha/bin/activate' >> ~/.zshrc
   echo -e "\033[1;33m---------------------------------------\033[0m"
-  echo -e "\033[1;33mU+1F389 完成！您可以在虚拟环境中使用 'python' 运行 Python。 / Done! You can run Python in the virtual environment.\033[0m"
+  echo -e "\033[1;33m\U+1F389 完成！您可以在虚拟环境中使用 'python' 运行 Python。 / Done! You can run Python in the virtual environment.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
 }
 
 # Function to install PM2
 install_pm2() {
   echo -e "\033[1;33m=======================================\033[0m"
-  echo -e "\033[1;33mU+1F4AC 开始安装 PM2... / Installing PM2...\033[0m"
+  echo -e "\033[1;33m\U+1F4AC 开始安装 PM2... / Installing PM2...\033[0m"
   echo -e "\033[1;33m=======================================\033[0m"
   echo "安装 Node.js 和 npm... / Installing Node.js and npm..."
   sudo apt update || echo "更新软件包列表失敗，继续尝试安装... / Failed to update package lists, continuing..."
@@ -134,14 +134,14 @@ install_pm2() {
     echo "PM2 安装失败。 / PM2 installation failed."
   fi
   echo -e "\033[1;33m---------------------------------------\033[0m"
-  echo -e "\033[1;33mU+1F389 完成！您可以使用 'pm2' 运行 PM2。 / Done! You can run PM2 with 'pm2'.\033[0m"
+  echo -e "\033[1;33m\U+1F389 完成！您可以使用 'pm2' 运行 PM2。 / Done! You can run PM2 with 'pm2'.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
 }
 
 # Function to install LunarVim for Python development
 install_lunarvim() {
   echo -e "\033[1;33m=======================================\033[0m"
-  echo -e "\033[1;33mU+1F4AC 安装 LunarVim for Python 开发 / Installing LunarVim for Python development\033[0m"
+  echo -e "\033[1;33m\U+1F4AC 安装 LunarVim for Python 开发 / Installing LunarVim for Python development\033[0m"
   echo -e "\033[1;33m=======================================\033[0m"
   echo "安装依赖项... / Installing dependencies..."
   sudo apt update
@@ -161,14 +161,14 @@ EOF
   fi
 
   echo -e "\033[1;33m---------------------------------------\033[0m"
-  echo -e "\033[1;33mU+1F389 完成！您可以使用 'lvim' 运行 LunarVim。 / Done! You can run LunarVim with 'lvim'.\033[0m"
+  echo -e "\033[1;33m\U+1F389 完成！您可以使用 'lvim' 运行 LunarVim。 / Done! You can run LunarVim with 'lvim'.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
 }
 
 # Function to install Pyenv, Python, and xbx-py11
 install_pyenv() {
   echo -e "\033[1;33m=======================================\033[0m"
-  echo -e "\033[1;33mU+1F4AC 安装 pyenv、Python 和 xbx-py11 / Installing pyenv, Python, and xbx-py11\033[0m"
+  echo -e "\033[1;33m\U+1F4AC 安装 pyenv、Python 和 xbx-py11 / Installing pyenv, Python, and xbx-py11\033[0m"
   echo -e "\033[1;33m=======================================\033[0m"
   echo "安装依赖项... / Installing dependencies..."
   sudo apt update
@@ -190,7 +190,7 @@ install_pyenv() {
 
   source ~/.zshrc
   echo -e "\033[1;33m---------------------------------------\033[0m"
-  echo -e "\033[1;33mU+1F389 完成！您可以使用 'python' 运行 python。 / Done! You can run python.\033[0m"
+  echo -e "\033[1;33m\U+1F389 完成！您可以使用 'python' 运行 python。 / Done! You can run python.\033[0m"
   echo -e "\033[1;33m---------------------------------------\033[0m"
 }
 
