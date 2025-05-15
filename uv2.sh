@@ -252,3 +252,4 @@ seconds=$((execution_time % 60))
 echo "脚本成功完成！ / Script completed successfully!"
 echo "总执行时间：$minutes 分钟 $seconds 秒 / Total execution time: $minutes minutes and $seconds seconds"
 echo "请检查 /tmp/pyenv_install.log 以获取详细信息。 / Please check /tmp/pyenv_install.log for details."
+source alpha/bin/activate
