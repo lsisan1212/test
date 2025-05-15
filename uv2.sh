@@ -227,8 +227,6 @@ if contains 6; then
   install_pyenv
 fi
 
-echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
-echo ""
 echo "显示磁盘使用情况... / Displaying disk usage..."
 df -h || echo "\U26A0 运行 df -h 失败 / Failed to run df -h"
 echo ""
@@ -241,33 +239,19 @@ echo ""
 
 if contains 1 || contains 2; then
   echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
-  echo ""
   echo -e "Google Chrome 版本： / Google Chrome version: $(google-chrome --version || echo '\U26A0 无法显示 Google Chrome 版本。 / Failed to display Google Chrome version.')"
-  echo ""
 fi
 if contains 1 || contains 3 || contains 6; then
-  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
-  echo ""
   echo -e "Python 版本： / Python version: $(python --version || echo '\U26A0 无法显示 Python 版本。 / Failed to display Python version.')"
-  echo ""
 fi
 if contains 1 || contains 4; then
-  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
-  echo ""
   echo -e "PM2 版本： / PM2 version: $(pm2 --version || echo '\U26A0 无法显示 PM2 版本。 / Failed to display PM2 version.')"
-  echo ""
 fi
 if contains 5; then
-  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
-  echo ""
   echo -e "LunarVim 版本： / LunarVim version: $(lvim --version || echo '\U26A0 无法显示 LunarVim 版本。 / Failed to display LunarVim version.')"
-  echo ""
 fi
 if contains 6; then
-  echo -e "\033[1;33m------------------------------------------------------------------------------\033[0m"
-  echo ""
   echo -e "Pyenv 版本： / Pyenv version: $(pyenv --version || echo '\U26A0 无法显示 Pyenv 版本。 / Failed to display Pyenv version.')"
-  echo ""
 fi
 
 end_time=$(date +%s)
