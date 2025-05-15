@@ -274,4 +274,4 @@ end_time=$(date +%s)
 execution_time=$((end_time - start_time))
 minutes=$((execution_time / 60))
 seconds=$((execution_time % 60))
-echo "脚本成功完成！ 总执行时间：$minutes 分钟 $seconds 秒 / Setup completed! Consumed: $minutes mins and $seconds s"
+echo "脚本成功完成！ 总执行时间：$minutes 分钟 $seconds 秒 / Setup completed! Consumed: $minutes:$seconds"
