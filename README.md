@@ -6,6 +6,9 @@ curl -sL https://github.com/lsisan1212/test/raw/master/uv.sh -o uv.sh && chmod 7
 
 curl -sL https://github.com/lsisan1212/test/raw/master/uv2.sh -o uv2.sh && chmod 777 uv2.sh && ./uv2.sh
 
+
+curl -sL https://github.com/lsisan1212/test/raw/master/uv4.sh -o uv4.sh && chmod 777 uv4.sh && ./uv4.sh
+
 wget -qO- https://github.com/lsisan1212/test/raw/master/pyenv.sh | bash
 
 
